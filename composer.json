@@ -1,0 +1,6 @@
+{
+  "license": "MIT",
+  "require": {
+    "phpoffice/phpspreadsheet": "1.20.*"
+  }
+}
