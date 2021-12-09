@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map Diagram</title>
+</head>
+<body>
+<form action="../php/map_diagram.php" method="post">
+    <label for="chart_type">
+        Chart Type
+    </label>
+    <select name="chart_type" id="chart_type">
+        <option value="1">Iran's states</option>
+        <option value="2">Iran's Cities</option>
+        <option value="3">World's Countries</option>
+    </select>
+    <br>
+    <label for="color_input">Circle's Color</label>
+    <input type="color" id="color_input" name="color"
+           value="#f6b73c">
+    <br>
+    <label for="caption">Chart Caption</label>
+    <input type="text" id="caption" name="caption">
+    <br>
+    <input type="submit">
+</form>
+</body>
+</html>
