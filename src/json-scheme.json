@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Users": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "postid": {
+              "type": "integer"
+            },
+            "postTitle": {
+              "type": "string"
+            },
+            "employeeName": {
+              "type": "string"
+            },
+            "higherPostId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "postid",
+            "postTitle",
+            "employeeName",
+            "higherPostId"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "Users"
+  ]
+}
