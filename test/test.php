@@ -7,22 +7,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 $reader = new Xls();
 
-$spreadsheet = $reader->load("../raw/cities.xls");
+$spreadsheet = $reader->load("../raw/states.xls");
 
 try {
-    $d = $spreadsheet->getSheet(0)->toArray();
-    echo count($d);
-    echo "<br>";
-    $sheetData = $spreadsheet->getActiveSheet()->toArray();
-    $i=1;
-    unset($sheetData[0]);
+    $target_data = [];
+    $sheetData = $spreadsheet->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        // process element here;
-        // access column by index
-        echo $i."---".$t[0].",".$t[1]." <br>";
-        $i++;
+        $target_data[$t[0]] = $t[1];
     }
-
+    print_r($target_data);
 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
     echo "error";
 }
