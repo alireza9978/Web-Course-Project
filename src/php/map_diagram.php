@@ -11,18 +11,18 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls;
 $reader = new Xls();
 
 $spreadsheet_cities = $reader->load("../../raw/cities.xls");
-$spreadsheet_states = $reader->load("../../raw/states.xls");
+$spreadsheet_states = $reader->load("../../raw/coordinates_states.xls");
 $cities_array = [];
 $states_array = [];
 try {
     $sheetData = $spreadsheet_cities->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        $cities_array[$t[0]] = $t[1];
+        $cities_array[$t[0]] = [$t[1], $t[2], $t[3]];
     }
 
     $sheetData = $spreadsheet_states->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        $states_array[$t[0]] = $t[1];
+        $states_array[$t[0]] = [$t[1], $t[2], $t[3]];
     }
 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
     echo "error";
@@ -56,7 +56,8 @@ function validate_data($str = NULL, $chart_type = NULL): bool
     if ($chart_type == 1) {
         global $states_array;
         foreach ($data as $key => $val) {
-            echo "$states_array[$key] = $key is $val<br/>";
+            $temp = $states_array[$key];
+            echo "$temp[0] $temp[1] $temp[2]<br/>";
         }
     } elseif ($chart_type == 2) {
         global $cities_array;
@@ -103,7 +104,9 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 </p>
 
 <?php
-$circle_diameter = 100;
+$max_circle_diameter = 100;
+$min_circle_diameter = 50;
+$circle_diameter_range = $max_circle_diameter - $min_circle_diameter;
 $main_image_width = 2560;
 $main_image_height = 2560;
 $caption_height = 250;
@@ -122,9 +125,35 @@ $image_path = "../images/map-scaled.png";
 $output_path = "../images/out.png";
 $im = imagecreatefrompng($image_path);
 // Create a colour.
-$circle_color = imagecolorallocate($im, $r, $g, $b);
+$circle_color = imagecolorallocatealpha($im, $r, $g, $b, 32);
 // Draw a circle in the middle of the image.
-imagefilledellipse($im, $main_image_height / 2, $main_image_height / 2, $circle_diameter, $circle_diameter, $circle_color);
+//imagefilledellipse($im, $main_image_height / 2, $main_image_height / 2, $circle_diameter, $circle_diameter, $circle_color);
+
+// Draw circle in center of states
+$data = json_decode($chartData);
+if ($chartType == 1) {
+    $max_value = -1;
+    $min_value = 100000;
+    foreach ($data as $key => $temp_value) {
+        if ($temp_value > $max_value) {
+            $max_value = $temp_value;
+        }
+        if ($temp_value < $min_value) {
+            $min_value = $temp_value;
+        }
+    }
+    $values_different = $max_value - $min_value;
+    foreach ($data as $key => $val) {
+        $temp = $states_array[$key];
+        $temp_value = $val;
+        $temp_value = $temp_value - $min_value;
+        $temp_value = $temp_value / $values_different;
+        $temp_value = $circle_diameter_range * $temp_value;
+        $temp_value = $temp_value + $min_circle_diameter;
+        imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
+    }
+}
+
 // Copy and merge
 imagecopymerge($final_image, $im, 0, 0, 0, 0, $main_image_width, $main_image_height, 100);
 
