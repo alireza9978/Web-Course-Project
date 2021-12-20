@@ -66,6 +66,7 @@ function validate_data($str = NULL, $chart_type = NULL): bool
     }
     return true;
 }
+
 ?>
 
 Welcome <br>
@@ -79,10 +80,16 @@ Welcome <br>
 
 <?php
 $color = $_POST["color"];
-echo '<p style="color:' . $color . ';">Your chart circle color is:' . $color . '</p>'; ?>
+list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
+echo '<p style="color:' . $color . ';">Your chart circle color is: ' . $color . '</br>';
+echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
+?>
 
 <p>
-    Your chart caption is: "<?php echo $_POST["caption"]; ?>"
+    <?php
+    $chart_caption = $_POST["caption"];
+    ?>
+    Your chart caption is: "<?php echo $chart_caption; ?>"
 </p>
 
 <p>
@@ -94,6 +101,49 @@ echo '<p style="color:' . $color . ';">Your chart circle color is:' . $color . '
     <br>
     Your chart data is: <?php echo get_validation_str($chartDataValidation); ?>
 </p>
+
+<?php
+$circle_diameter = 100;
+$main_image_width = 2560;
+$main_image_height = 2560;
+$caption_height = 250;
+
+////create a white image
+$final_image = imagecreatetruecolor($main_image_width, $main_image_height + $caption_height);
+// Create some colors
+$white = imagecolorallocate($final_image, 255, 255, 255);
+$grey = imagecolorallocate($final_image, 128, 128, 128);
+$black = imagecolorallocate($final_image, 0, 0, 0);
+// fill final image with white
+imagefill($final_image, 0, 0, $white);
+
+////load map and add circle
+$image_path = "../images/map-scaled.png";
+$output_path = "../images/out.png";
+$im = imagecreatefrompng($image_path);
+// Create a colour.
+$circle_color = imagecolorallocate($im, $r, $g, $b);
+// Draw a circle in the middle of the image.
+imagefilledellipse($im, $main_image_height / 2, $main_image_height / 2, $circle_diameter, $circle_diameter, $circle_color);
+// Copy and merge
+imagecopymerge($final_image, $im, 0, 0, 0, 0, $main_image_width, $main_image_height, 100);
+
+////add caption to final image
+// Replace path by your own font path
+$font = '../fonts/arial.ttf';
+
+// Add the text
+imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $black, $font, $chart_caption);
+
+// Save the image to a file.
+// output the picture
+imagepng($final_image, $output_path);
+// Destroy the image handler.
+imagedestroy($im);
+imagedestroy($final_image);
+?>
+<img src="<?php echo $output_path ?>" alt="iran map" width="500" height="500">
+
 
 </body>
 </html>
