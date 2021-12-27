@@ -111,23 +111,15 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 <!-- chart path -->
 <p>
     <?php
-    $outputFile = $_POST["output_path"];
-    if ($outputFile != null) {
-
-        if (is_dir($outputFile)) {
-            if (!file_exists($outputFile)) {
-                mkdir($outputFile, 0777, true);
+    $outputPath = $_POST["output_path"];
+    $outputFile = $_POST["output_name"];
+    if ($outputFile != null and $outputPath != null) {
+        if (is_dir($outputPath)) {
+            if (!file_exists($outputPath)) {
+                mkdir($outputPath, 0777, true);
             }
-            $outputFile .= "/out.png";
+            $outputFile = $outputPath . "/" . $outputFile;
         }
-//        else {
-//            $parts = explode("/", $outputFile, -1);
-//            print_r($parts);
-//            $outputPath = implode('', $parts);
-//            if (!file_exists($outputPath)) {
-//                mkdir($outputFile, 0777, true);
-//            }
-//        }
     } else {
         $outputFile = "no where";
     }
