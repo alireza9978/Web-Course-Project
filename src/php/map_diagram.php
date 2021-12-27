@@ -128,7 +128,7 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 //                mkdir($outputFile, 0777, true);
 //            }
 //        }
-    }else{
+    } else {
         $outputFile = "no where";
     }
     ?>
@@ -145,7 +145,11 @@ $main_image_height = 2560;
 $caption_height = 250;
 
 ////create a white image
-$final_image = imagecreatetruecolor($main_image_width, $main_image_height + $caption_height);
+if ($chart_caption == null) {
+    $final_image = imagecreatetruecolor($main_image_width, $main_image_height);
+} else {
+    $final_image = imagecreatetruecolor($main_image_width, $main_image_height + $caption_height);
+}
 // Create some colors
 $white = imagecolorallocate($final_image, 255, 255, 255);
 $grey = imagecolorallocate($final_image, 128, 128, 128);
@@ -159,8 +163,6 @@ $output_path = "../images/out.png";
 $im = imagecreatefrompng($image_path);
 // Create a colour.
 $circle_color = imagecolorallocatealpha($im, $r, $g, $b, 32);
-// Draw a circle in the middle of the image.
-//imagefilledellipse($im, $main_image_height / 2, $main_image_height / 2, $circle_diameter, $circle_diameter, $circle_color);
 
 // Draw circle in center of states
 $data = json_decode($chartData);
@@ -225,11 +227,13 @@ imagecopymerge($final_image, $im, 0, 0, 0, 0, $main_image_width, $main_image_hei
 $font = '../fonts/arial.ttf';
 
 // Add the text
-imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $black, $font, $chart_caption);
+if ($chart_caption != null) {
+    imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $black, $font, $chart_caption);
+}
 
 // Save the image to a file.
 // output the picture
-if ($outputFile !== "no where"){
+if ($outputFile !== "no where") {
     imagepng($final_image, $outputFile);
 }
 imagepng($final_image, $output_path);
