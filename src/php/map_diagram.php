@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <body>
 
 <!-- read xlsx file with php and save in variables-->
@@ -17,7 +17,7 @@ $states_array = [];
 try {
     $sheetData = $spreadsheet_cities->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        $cities_array[$t[0]] = [$t[1], $t[2], $t[3]];
+        $cities_array[$t[0]] = [$t[1], $t[2]];
     }
 
     $sheetData = $spreadsheet_states->getSheet(0)->toArray();
@@ -57,12 +57,13 @@ function validate_data($str = NULL, $chart_type = NULL): bool
         global $states_array;
         foreach ($data as $key => $val) {
             $temp = $states_array[$key];
-            echo "$temp[0] $temp[1] $temp[2]<br/>";
+            echo "id=$key $temp[0] $temp[1] $temp[2], value=$val<br/>";
         }
     } elseif ($chart_type == 2) {
         global $cities_array;
         foreach ($data as $key => $val) {
-            echo "$cities_array[$key] = $key is $val<br/>";
+            $temp = $cities_array[$key];
+            echo "id=$key, state_name=$temp[0] state_id=$temp[1] value=$val<br/>";
         }
     }
     return true;
@@ -71,14 +72,16 @@ function validate_data($str = NULL, $chart_type = NULL): bool
 ?>
 
 Welcome <br>
+
+<!-- chart type -->
 <p>
     <?php
     $chartType = $_POST["chart_type"];
     echo "Your chart type is:" . $chartType;
     ?>
-
 </p>
 
+<!-- chart color -->
 <?php
 $color = $_POST["color"];
 list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
@@ -86,6 +89,7 @@ echo '<p style="color:' . $color . ';">Your chart circle color is: ' . $color . 
 echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 ?>
 
+<!-- chart caption -->
 <p>
     <?php
     $chart_caption = $_POST["caption"];
@@ -93,6 +97,7 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
     Your chart caption is: "<?php echo $chart_caption; ?>"
 </p>
 
+<!-- chart data -->
 <p>
     <?php
     $chartData = $_POST["chart_data"];
@@ -101,6 +106,34 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
     Your chart data is: <?php echo $chartData; ?>
     <br>
     Your chart data is: <?php echo get_validation_str($chartDataValidation); ?>
+</p>
+
+<!-- chart path -->
+<p>
+    <?php
+    $outputFile = $_POST["output_path"];
+    if ($outputFile != null) {
+
+        if (is_dir($outputFile)) {
+            if (!file_exists($outputFile)) {
+                mkdir($outputFile, 0777, true);
+            }
+            $outputFile .= "/out.png";
+        }
+//        else {
+//            $parts = explode("/", $outputFile, -1);
+//            print_r($parts);
+//            $outputPath = implode('', $parts);
+//            if (!file_exists($outputPath)) {
+//                mkdir($outputFile, 0777, true);
+//            }
+//        }
+    }else{
+        $outputFile = "no where";
+    }
+    ?>
+    Your Chart Saved in = <?php echo $outputFile; ?>
+
 </p>
 
 <?php
@@ -152,6 +185,36 @@ if ($chartType == 1) {
         $temp_value = $temp_value + $min_circle_diameter;
         imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
     }
+} elseif ($chartType == 2) {
+    $temp_city_state_array = [];
+    foreach ($data as $key => $temp_value) {
+        $temp_city = $cities_array[$key];
+        if ($temp_city_state_array[$temp_city[1]] == null) {
+            $temp_city_state_array[$temp_city[1]] = $temp_value;
+        } else {
+            $temp_city_state_array[$temp_city[1]] += $temp_value;
+        }
+    }
+    $max_value = -1;
+    $min_value = 100000;
+    foreach ($temp_city_state_array as $key => $temp_value) {
+        if ($temp_value > $max_value) {
+            $max_value = $temp_value;
+        }
+        if ($temp_value < $min_value) {
+            $min_value = $temp_value;
+        }
+    }
+    $values_different = $max_value - $min_value;
+    foreach ($temp_city_state_array as $key => $val) {
+        $temp = $states_array[$key];
+        $temp_value = $val;
+        $temp_value = $temp_value - $min_value;
+        $temp_value = $temp_value / $values_different;
+        $temp_value = $circle_diameter_range * $temp_value;
+        $temp_value = $temp_value + $min_circle_diameter;
+        imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
+    }
 }
 
 // Copy and merge
@@ -166,13 +229,15 @@ imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($
 
 // Save the image to a file.
 // output the picture
+if ($outputFile !== "no where"){
+    imagepng($final_image, $outputFile);
+}
 imagepng($final_image, $output_path);
 // Destroy the image handler.
 imagedestroy($im);
 imagedestroy($final_image);
 ?>
-<img src="<?php echo $output_path ?>" alt="iran map" width="500" height="500">
-
+<img src="<?php echo $output_path; ?>" alt="iran map" width="500" height="500">
 
 </body>
 </html>
