@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <body>
 
 <!-- read xlsx file with php and save in variables-->
@@ -17,7 +17,7 @@ $states_array = [];
 try {
     $sheetData = $spreadsheet_cities->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        $cities_array[$t[0]] = [$t[1], $t[2], $t[3]];
+        $cities_array[$t[0]] = [$t[1], $t[2]];
     }
 
     $sheetData = $spreadsheet_states->getSheet(0)->toArray();
@@ -57,12 +57,13 @@ function validate_data($str = NULL, $chart_type = NULL): bool
         global $states_array;
         foreach ($data as $key => $val) {
             $temp = $states_array[$key];
-            echo "$temp[0] $temp[1] $temp[2]<br/>";
+            echo "id=$key $temp[0] $temp[1] $temp[2], value=$val<br/>";
         }
     } elseif ($chart_type == 2) {
         global $cities_array;
         foreach ($data as $key => $val) {
-            echo "$cities_array[$key] = $key is $val<br/>";
+            $temp = $cities_array[$key];
+            echo "id=$key, state_name=$temp[0] state_id=$temp[1] value=$val<br/>";
         }
     }
     return true;
@@ -144,6 +145,36 @@ if ($chartType == 1) {
     }
     $values_different = $max_value - $min_value;
     foreach ($data as $key => $val) {
+        $temp = $states_array[$key];
+        $temp_value = $val;
+        $temp_value = $temp_value - $min_value;
+        $temp_value = $temp_value / $values_different;
+        $temp_value = $circle_diameter_range * $temp_value;
+        $temp_value = $temp_value + $min_circle_diameter;
+        imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
+    }
+} elseif ($chartType == 2) {
+    $temp_city_state_array = [];
+    foreach ($data as $key => $temp_value) {
+        $temp_city = $cities_array[$key];
+        if ($temp_city_state_array[$temp_city[1]] == null) {
+            $temp_city_state_array[$temp_city[1]] = $temp_value;
+        } else {
+            $temp_city_state_array[$temp_city[1]] += $temp_value;
+        }
+    }
+    $max_value = -1;
+    $min_value = 100000;
+    foreach ($temp_city_state_array as $key => $temp_value) {
+        if ($temp_value > $max_value) {
+            $max_value = $temp_value;
+        }
+        if ($temp_value < $min_value) {
+            $min_value = $temp_value;
+        }
+    }
+    $values_different = $max_value - $min_value;
+    foreach ($temp_city_state_array as $key => $val) {
         $temp = $states_array[$key];
         $temp_value = $val;
         $temp_value = $temp_value - $min_value;
