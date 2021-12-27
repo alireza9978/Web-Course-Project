@@ -72,14 +72,16 @@ function validate_data($str = NULL, $chart_type = NULL): bool
 ?>
 
 Welcome <br>
+
+<!-- chart type -->
 <p>
     <?php
     $chartType = $_POST["chart_type"];
     echo "Your chart type is:" . $chartType;
     ?>
-
 </p>
 
+<!-- chart color -->
 <?php
 $color = $_POST["color"];
 list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
@@ -87,6 +89,7 @@ echo '<p style="color:' . $color . ';">Your chart circle color is: ' . $color . 
 echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 ?>
 
+<!-- chart caption -->
 <p>
     <?php
     $chart_caption = $_POST["caption"];
@@ -94,6 +97,7 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
     Your chart caption is: "<?php echo $chart_caption; ?>"
 </p>
 
+<!-- chart data -->
 <p>
     <?php
     $chartData = $_POST["chart_data"];
@@ -102,6 +106,34 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
     Your chart data is: <?php echo $chartData; ?>
     <br>
     Your chart data is: <?php echo get_validation_str($chartDataValidation); ?>
+</p>
+
+<!-- chart path -->
+<p>
+    <?php
+    $outputFile = $_POST["output_path"];
+    if ($outputFile != null) {
+
+        if (is_dir($outputFile)) {
+            if (!file_exists($outputFile)) {
+                mkdir($outputFile, 0777, true);
+            }
+            $outputFile .= "/out.png";
+        }
+//        else {
+//            $parts = explode("/", $outputFile, -1);
+//            print_r($parts);
+//            $outputPath = implode('', $parts);
+//            if (!file_exists($outputPath)) {
+//                mkdir($outputFile, 0777, true);
+//            }
+//        }
+    }else{
+        $outputFile = "no where";
+    }
+    ?>
+    Your Chart Saved in = <?php echo $outputFile; ?>
+
 </p>
 
 <?php
@@ -197,13 +229,15 @@ imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($
 
 // Save the image to a file.
 // output the picture
+if ($outputFile !== "no where"){
+    imagepng($final_image, $outputFile);
+}
 imagepng($final_image, $output_path);
 // Destroy the image handler.
 imagedestroy($im);
 imagedestroy($final_image);
 ?>
-<img src="<?php echo $output_path ?>" alt="iran map" width="500" height="500">
-
+<img src="<?php echo $output_path; ?>" alt="iran map" width="500" height="500">
 
 </body>
 </html>
