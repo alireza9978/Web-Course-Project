@@ -87,7 +87,7 @@
     <textarea type="text" id="chart_data" name="chart_data" rows="2" cols="50">{"17":10,"19":20}</textarea>
     <br>
     <label for="output_path">Output Path: </label>
-    <textarea type="text" id="output_path" name="output_path" rows="1" cols="40">/home/alireza/Desktop/states.png</textarea>
+    <textarea type="text" id="output_path" name="output_path" rows="1" cols="40" placeholder="Enter output directory">/home/alireza/Desktop</textarea>
     <br>
 <!--    <label for="fname">Output Path:</label>-->
 <!--    <input type="text" id="fname" name="fname"><br>-->
@@ -105,13 +105,9 @@
         var x = document.getElementById("chart_type").value;
         if(x == "1"){
             document.getElementById('chart_data').value = '{"17":10,"19":20}';
-            document.getElementById('output_path').value = '/home/alireza/Desktop/states.png';
-
         }
         if(x == "2"){
             document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
-            document.getElementById('output_path').value = '/home/alireza/Desktop';
-
         }
     }
 </script>
