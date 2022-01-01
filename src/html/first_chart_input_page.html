@@ -25,10 +25,6 @@
             background-color: whitesmoke;
         }
 
-        .container {
-            position: relative;
-        }
-
         html {
             border: 2px solid darkslategray;
             border-radius: 30px;
@@ -41,7 +37,7 @@
 <div>
     <span class="badge badge-pill badge-warning" style="padding: 8px;ont-size: 1.1vw">map diagram</span>
 
-    <div style=" float:right; margin: 0.5%;margin-right: -5%;">
+    <div style=" float:right; margin: 0.5% -5% 0.5% 0.5%;">
         <h1 style="float: right;font-size: 1.2vw;font-family: 'B Nazanin',serif ;color: black">: توسعه دهندگان </h1>
     </div>
     <div style=" float:right; margin: 0.5%;">
@@ -88,7 +84,7 @@
     <label for="output_path">Output Path: </label>
     <textarea type="text" id="output_path" name="output_path" rows="1" cols="40" placeholder="Enter output directory">/home/alireza/Desktop</textarea>
     <br>
-    <label for="output_path">Output Name: </label>
+    <label for="output_name">Output Name: </label>
     <textarea type="text" id="output_name" name="output_name" rows="1" cols="20" placeholder="Enter output file name">states.png</textarea>
     <br>
     <!--    <label for="fname">Output Path:</label>-->
@@ -104,13 +100,13 @@
 
 <script>
     function chartTypeSelectFunction() {
-        var x = document.getElementById("chart_type").value;
-        if(x == "1"){
+        const x = document.getElementById("chart_type").value;
+        if(x === "1"){
             document.getElementById('chart_data').value = '{"17":10,"19":20}';
             document.getElementById('output_path').value = '/home/alireza/Desktop/';
             document.getElementById('output_name').value = 'states.png';
         }
-        if(x == "2"){
+        if(x === "2"){
             document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
             document.getElementById('output_path').value = '/home/alireza/Desktop/';
             document.getElementById('output_name').value = 'cities.png';
