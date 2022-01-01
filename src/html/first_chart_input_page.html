@@ -25,6 +25,10 @@
             background-color: whitesmoke;
         }
 
+        .container {
+            position: relative;
+        }
+
         html {
             border: 2px solid darkslategray;
             border-radius: 30px;
@@ -37,7 +41,7 @@
 <div>
     <span class="badge badge-pill badge-warning" style="padding: 8px;ont-size: 1.1vw">map diagram</span>
 
-    <div style=" float:right; margin: 0.5% -5% 0.5% 0.5%;">
+    <div style=" float:right; margin: 0.5%;margin-right: -5%;">
         <h1 style="float: right;font-size: 1.2vw;font-family: 'B Nazanin',serif ;color: black">: توسعه دهندگان </h1>
     </div>
     <div style=" float:right; margin: 0.5%;">
@@ -66,10 +70,17 @@
     <select name="chart_type" id="chart_type" onchange="chartTypeSelectFunction()">
         <option value="1">Iran's States</option>
         <option value="2">Iran's Cities</option>
-        <!--        <option value="3">World's Countries</option>-->
+        <option value="3">World's Countries</option>
     </select>
     <br>
+<!--    <input type="checkbox" id="sumup" name="sumup" style="display:none">-->
+<!--    <label for="sumup" id="sumuptxt" style="display:none"> I have a bike</label><br>-->
 
+    <label class="checkbox" id="sumuptxt" style="display:none; margin-left: 2%">
+        <input type="checkbox" id="sumup" value="sumup" style="display:none" checked="checked" />Sumup in Capital citits</label>
+
+<!--    <input type="checkbox" id="checkbox" style="display:none" >-->
+<!--    <label for="checkbox" style="display:none">Checkbox</label>-->
     <label for="color_input">Circle's Color: </label>
     <input type="color" id="color_input" name="color"
            value="#f6b73c">
@@ -84,7 +95,7 @@
     <label for="output_path">Output Path: </label>
     <textarea type="text" id="output_path" name="output_path" rows="1" cols="40" placeholder="Enter output directory">/home/alireza/Desktop</textarea>
     <br>
-    <label for="output_name">Output Name: </label>
+    <label for="output_path">Output Name: </label>
     <textarea type="text" id="output_name" name="output_name" rows="1" cols="20" placeholder="Enter output file name">states.png</textarea>
     <br>
     <!--    <label for="fname">Output Path:</label>-->
@@ -100,17 +111,38 @@
 
 <script>
     function chartTypeSelectFunction() {
-        const x = document.getElementById("chart_type").value;
-        if(x === "1"){
+        var x = document.getElementById("chart_type").value;
+        var y = document.getElementById("sumup");
+        var z = document.getElementById("sumuptxt");
+        if(x == "1"){
             document.getElementById('chart_data').value = '{"17":10,"19":20}';
             document.getElementById('output_path').value = '/home/alireza/Desktop/';
             document.getElementById('output_name').value = 'states.png';
+            if (y.style.display === "block") {
+                y.style.display = "none";
+                z.style.display = "none";
+            }
+
         }
-        if(x === "2"){
+        if(x == "2"){
             document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
             document.getElementById('output_path').value = '/home/alireza/Desktop/';
             document.getElementById('output_name').value = 'cities.png';
 
+            if (y.style.display === "none") {
+                y.style.display = "block";
+                z.style.display = "block";
+            }
+
+        }
+        if(x == "3"){
+            document.getElementById('chart_data').value = '{"33":5,"100":5, "25":5, "60":7}';
+            document.getElementById('output_path').value = '/home/alireza/Desktop/';
+            document.getElementById('output_name').value = 'world.png';
+            if (y.style.display === "block") {
+                y.style.display = "none";
+                z.style.display = "none";
+            }
         }
     }
 </script>
