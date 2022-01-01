@@ -41,7 +41,7 @@
 <div>
     <span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw">map diagram</span>
 
-    <div style=" float:right; margin: 0.5%;margin-right: -5%;">
+    <div style=" float:right; margin: 0.5% -5% 0.5% 0.5%;">
         <h1 style="float: right;font-size: 1.2vw;font-family: 'B Nazanin',serif ;color: black">: توسعه دهندگان </h1>
     </div>
     <div style=" float:right; margin: 0.5%;">
@@ -55,7 +55,8 @@
             علیرضا رحمیمی ازقدی</h1>
     </div>
     <div>
-        <h1 class="col-sm-4" style="font-size: 1.2vw;font-family: 'B Nazanin',serif;margin-left: -5%">آخرین به روزرسانی: ۱۴۰۰/۱۰/۰۹</h1>
+        <h1 class="col-sm-4" style="font-size: 1.2vw;font-family: 'B Nazanin',serif;margin-left: -5%">آخرین به روزرسانی:
+            ۱۴۰۰/۱۰/۰۹</h1>
     </div>
 </div>
 
@@ -74,8 +75,8 @@
     </select>
     <br>
 
-    <label class="checkbox" id="sumuptxt" style="display:none; margin-left: 2%">
-        <input type="checkbox" id="sumup" value="sumup" style="display:none" checked="checked" />Sumup in Capital citits</label>
+    <label for="sum_up" class="checkbox" id="sum_up_txt" style="display:none; margin-left: 2%">
+    <input name="sum_up" type="checkbox" id="sum_up" style="display:none"/>sum up in Capital cities</label>
 
     <label for="color_input">Circle's Color: </label>
     <input type="color" id="color_input" name="color"
@@ -91,11 +92,11 @@
     <label for="output_path">Output Path: </label>
     <textarea type="text" id="output_path" name="output_path" rows="1" cols="40" placeholder="Enter output directory">/home/alireza/Desktop</textarea>
     <br>
-    <label for="output_path">Output Name: </label>
+    <label for="output_name">Output Name: </label>
     <textarea type="text" id="output_name" name="output_name" rows="1" cols="20" placeholder="Enter output file name">states.png</textarea>
     <br>
     <!--    <label for="fname">Output Path:</label>-->
-<!--    <input type="text" id="fname" name="fname"><br>-->
+    <!--    <input type="text" id="fname" name="fname"><br>-->
     <br>
     <input type="submit">
 </form>
@@ -107,10 +108,10 @@
 
 <script>
     function chartTypeSelectFunction() {
-        var x = document.getElementById("chart_type").value;
-        var y = document.getElementById("sumup");
-        var z = document.getElementById("sumuptxt");
-        if(x == "1"){
+        const x = document.getElementById("chart_type").value;
+        const y = document.getElementById("sum_up");
+        const z = document.getElementById("sum_up_txt");
+        if (x === "1") {
             document.getElementById('chart_data').value = '{"17":10,"19":20}';
             document.getElementById('output_path').value = '/home/alireza/Desktop';
             document.getElementById('output_name').value = 'states.png';
@@ -120,7 +121,7 @@
             }
 
         }
-        if(x == "2"){
+        if (x === "2") {
             document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
             document.getElementById('output_path').value = '/home/alireza/Desktop';
             document.getElementById('output_name').value = 'cities.png';
@@ -131,7 +132,7 @@
             }
 
         }
-        if(x == "3"){
+        if (x === "3") {
             document.getElementById('chart_data').value = '{"4":10,"108":20, "144":15}';
             document.getElementById('output_path').value = '/home/alireza/Desktop';
             document.getElementById('output_name').value = 'world.png';

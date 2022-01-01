@@ -11,8 +11,10 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls;
 $reader = new Xls();
 
 $spreadsheet_cities = $reader->load("../../raw/cities.xls");
+$spreadsheet_coordinates_cities = $reader->load("../../raw/coordinates_cities.xls");
 $spreadsheet_states = $reader->load("../../raw/coordinates_states.xls");
 $spreadsheet_world = $reader->load("../../raw/world.xls");
+$coordinates_cities_array = [];
 $cities_array = [];
 $states_array = [];
 $world_array = [];
@@ -20,6 +22,11 @@ try {
     $sheetData = $spreadsheet_cities->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
         $cities_array[$t[0]] = [$t[1], $t[2]];
+    }
+
+    $sheetData = $spreadsheet_coordinates_cities->getSheet(0)->toArray();
+    foreach ($sheetData as $t) {
+        $coordinates_cities_array[$t[1]] = [$t[2], $t[0], $t[4], $t[5]];
     }
 
     $sheetData = $spreadsheet_states->getSheet(0)->toArray();
@@ -72,7 +79,7 @@ function validate_data($str = NULL, $chart_type = NULL): bool
             $temp = $cities_array[$key];
             echo "id=$key, state_name=$temp[0] state_id=$temp[1] value=$val<br/>";
         }
-    } elseif ($chart_type == 3){
+    } elseif ($chart_type == 3) {
         global $world_array;
         foreach ($data as $key => $val) {
             $temp = $world_array[$key];
@@ -109,6 +116,20 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
     $chart_caption = $_POST["caption"];
     ?>
     Your chart caption is: "<?php echo $chart_caption; ?>"
+</p>
+
+
+<!-- sum up -->
+<p>
+    <?php
+    $chart_sum_up = $_POST["sum_up"];
+    if ($chart_sum_up != null) {
+        $chart_sum_up = true;
+    } else {
+        $chart_sum_up = false;
+    }
+    ?>
+    Your chart cities sum up state : "<?php echo $chart_sum_up; ?>"
 </p>
 
 <!-- chart data -->
@@ -148,10 +169,10 @@ $min_circle_diameter = 20;
 $circle_diameter_range = $max_circle_diameter - $min_circle_diameter;
 $main_image_width = null;
 $main_image_height = null;
-if ($chartType == 1 || $chartType==2){
+if ($chartType == 1 || $chartType == 2) {
     $main_image_width = 2560;
     $main_image_height = 2560;
-}elseif ($chartType == 3){
+} elseif ($chartType == 3) {
     $main_image_width = 3840;
     $main_image_height = 2200;
 }
@@ -174,9 +195,9 @@ imagefill($final_image, 0, 0, $white);
 ////load map and add circle
 
 $image_path = null;
-if ($chartType == 1 || $chartType == 2){
+if ($chartType == 1 || $chartType == 2) {
     $image_path = "../images/map-scaled.png";
-}elseif ($chartType == 3){
+} elseif ($chartType == 3) {
     $image_path = "../images/world-map.png";
 }
 $output_path = "../images/out.png";
@@ -208,35 +229,59 @@ if ($chartType == 1) {
         imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
     }
 } elseif ($chartType == 2) {
-    $temp_city_state_array = [];
-    foreach ($data as $key => $temp_value) {
-        $temp_city = $cities_array[$key];
-        if ($temp_city_state_array[$temp_city[1]] == null) {
-            $temp_city_state_array[$temp_city[1]] = $temp_value;
-        } else {
-            $temp_city_state_array[$temp_city[1]] += $temp_value;
+    if ($chart_sum_up){
+        $temp_city_state_array = [];
+        foreach ($data as $key => $temp_value) {
+            $temp_city = $cities_array[$key];
+            if ($temp_city_state_array[$temp_city[1]] == null) {
+                $temp_city_state_array[$temp_city[1]] = $temp_value;
+            } else {
+                $temp_city_state_array[$temp_city[1]] += $temp_value;
+            }
+        }
+        $max_value = -1;
+        $min_value = 100000;
+        foreach ($temp_city_state_array as $key => $temp_value) {
+            if ($temp_value > $max_value) {
+                $max_value = $temp_value;
+            }
+            if ($temp_value < $min_value) {
+                $min_value = $temp_value;
+            }
+        }
+        $values_different = $max_value - $min_value;
+        foreach ($temp_city_state_array as $key => $val) {
+            $temp = $states_array[$key];
+            $temp_value = $val;
+            $temp_value = $temp_value - $min_value;
+            $temp_value = $temp_value / $values_different;
+            $temp_value = $circle_diameter_range * $temp_value;
+            $temp_value = $temp_value + $min_circle_diameter;
+            imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
+        }
+    }else{
+        $max_value = -1;
+        $min_value = 100000;
+        foreach ($data as $key => $temp_value) {
+            if ($temp_value > $max_value) {
+                $max_value = $temp_value;
+            }
+            if ($temp_value < $min_value) {
+                $min_value = $temp_value;
+            }
+        }
+        $values_different = $max_value - $min_value;
+        foreach ($data as $key => $val) {
+            $temp = $coordinates_cities_array[$key];
+            $temp_value = $val;
+            $temp_value = $temp_value - $min_value;
+            $temp_value = $temp_value / $values_different;
+            $temp_value = $circle_diameter_range * $temp_value;
+            $temp_value = $temp_value + $min_circle_diameter;
+            imagefilledellipse($im, $temp[3], $temp[2], $temp_value, $temp_value, $circle_color);
         }
     }
-    $max_value = -1;
-    $min_value = 100000;
-    foreach ($temp_city_state_array as $key => $temp_value) {
-        if ($temp_value > $max_value) {
-            $max_value = $temp_value;
-        }
-        if ($temp_value < $min_value) {
-            $min_value = $temp_value;
-        }
-    }
-    $values_different = $max_value - $min_value;
-    foreach ($temp_city_state_array as $key => $val) {
-        $temp = $states_array[$key];
-        $temp_value = $val;
-        $temp_value = $temp_value - $min_value;
-        $temp_value = $temp_value / $values_different;
-        $temp_value = $circle_diameter_range * $temp_value;
-        $temp_value = $temp_value + $min_circle_diameter;
-        imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
-    }
+
 } elseif ($chartType == 3) {
     $max_value = -1;
     $min_value = 100000;
@@ -256,7 +301,7 @@ if ($chartType == 1) {
         $temp_value = $temp_value / $values_different;
         $temp_value = $circle_diameter_range * $temp_value;
         $temp_value = $temp_value + $min_circle_diameter;
-        echo "x=". $temp[1] . ",y=" . $temp[2] . "<br>";
+        echo "x=" . $temp[1] . ",y=" . $temp[2] . "<br>";
         imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
     }
 }
@@ -284,15 +329,15 @@ imagedestroy($im);
 imagedestroy($final_image);
 ?>
 <img src="<?php echo $output_path; ?>" alt="iran map" width="<?php
-if ($chartType == 1 || $chartType==2){
+if ($chartType == 1 || $chartType == 2) {
     echo 500;
-}elseif ($chartType == 3){
+} elseif ($chartType == 3) {
     echo 500;
 }
 ?>" height="<?php
-if ($chartType == 1 || $chartType==2){
+if ($chartType == 1 || $chartType == 2) {
     echo 500;
-}elseif ($chartType == 3){
+} elseif ($chartType == 3) {
     echo 300;
 }
 ?>">
