@@ -12,8 +12,10 @@ $reader = new Xls();
 
 $spreadsheet_cities = $reader->load("../../raw/cities.xls");
 $spreadsheet_states = $reader->load("../../raw/coordinates_states.xls");
+$spreadsheet_world = $reader->load("../../raw/world.xls");
 $cities_array = [];
 $states_array = [];
+$world_array = [];
 try {
     $sheetData = $spreadsheet_cities->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
@@ -23,6 +25,11 @@ try {
     $sheetData = $spreadsheet_states->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
         $states_array[$t[0]] = [$t[1], $t[2], $t[3]];
+    }
+
+    $sheetData = $spreadsheet_world->getSheet(0)->toArray();
+    foreach ($sheetData as $t) {
+        $world_array[$t[0]] = [$t[2], $t[3]];
     }
 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
     echo "error";
@@ -201,6 +208,27 @@ if ($chartType == 1) {
     }
     $values_different = $max_value - $min_value;
     foreach ($temp_city_state_array as $key => $val) {
+        $temp = $states_array[$key];
+        $temp_value = $val;
+        $temp_value = $temp_value - $min_value;
+        $temp_value = $temp_value / $values_different;
+        $temp_value = $circle_diameter_range * $temp_value;
+        $temp_value = $temp_value + $min_circle_diameter;
+        imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
+    }
+} elseif ($chartType == 3) {
+    $max_value = -1;
+    $min_value = 100000;
+    foreach ($data as $key => $temp_value) {
+        if ($temp_value > $max_value) {
+            $max_value = $temp_value;
+        }
+        if ($temp_value < $min_value) {
+            $min_value = $temp_value;
+        }
+    }
+    $values_different = $max_value - $min_value;
+    foreach ($data as $key => $val) {
         $temp = $states_array[$key];
         $temp_value = $val;
         $temp_value = $temp_value - $min_value;
