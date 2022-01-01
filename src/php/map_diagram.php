@@ -29,7 +29,7 @@ try {
 
     $sheetData = $spreadsheet_world->getSheet(0)->toArray();
     foreach ($sheetData as $t) {
-        $world_array[$t[0]] = [$t[2], $t[3]];
+        $world_array[$t[0]] = [$t[1], $t[2], $t[3]];
     }
 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
     echo "error";
@@ -71,6 +71,13 @@ function validate_data($str = NULL, $chart_type = NULL): bool
         foreach ($data as $key => $val) {
             $temp = $cities_array[$key];
             echo "id=$key, state_name=$temp[0] state_id=$temp[1] value=$val<br/>";
+        }
+    } elseif ($chart_type == 3){
+        global $world_array;
+        foreach ($data as $key => $val) {
+            $temp = $world_array[$key];
+            echo "id=$key, state_name=$temp[0] value=$val<br/>";
+            echo "x=$temp[1], y=$temp[2] <br/>";
         }
     }
     return true;
@@ -136,12 +143,20 @@ echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
 </p>
 
 <?php
-$max_circle_diameter = 100;
-$min_circle_diameter = 50;
+$max_circle_diameter = 60;
+$min_circle_diameter = 20;
 $circle_diameter_range = $max_circle_diameter - $min_circle_diameter;
-$main_image_width = 2560;
-$main_image_height = 2560;
-$caption_height = 250;
+$main_image_width = null;
+$main_image_height = null;
+if ($chartType == 1 || $chartType==2){
+    $main_image_width = 2560;
+    $main_image_height = 2560;
+}elseif ($chartType == 3){
+    $main_image_width = 3840;
+    $main_image_height = 2200;
+}
+
+$caption_height = 200;
 
 ////create a white image
 if ($chart_caption == null) {
@@ -157,7 +172,13 @@ $black = imagecolorallocate($final_image, 0, 0, 0);
 imagefill($final_image, 0, 0, $white);
 
 ////load map and add circle
-$image_path = "../images/map-scaled.png";
+
+$image_path = null;
+if ($chartType == 1 || $chartType == 2){
+    $image_path = "../images/map-scaled.png";
+}elseif ($chartType == 3){
+    $image_path = "../images/world-map.png";
+}
 $output_path = "../images/out.png";
 $im = imagecreatefrompng($image_path);
 // Create a colour.
@@ -229,12 +250,13 @@ if ($chartType == 1) {
     }
     $values_different = $max_value - $min_value;
     foreach ($data as $key => $val) {
-        $temp = $states_array[$key];
+        $temp = $world_array[$key];
         $temp_value = $val;
         $temp_value = $temp_value - $min_value;
         $temp_value = $temp_value / $values_different;
         $temp_value = $circle_diameter_range * $temp_value;
         $temp_value = $temp_value + $min_circle_diameter;
+        echo "x=". $temp[1] . ",y=" . $temp[2] . "<br>";
         imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
     }
 }
@@ -261,7 +283,19 @@ imagepng($final_image, $output_path);
 imagedestroy($im);
 imagedestroy($final_image);
 ?>
-<img src="<?php echo $output_path; ?>" alt="iran map" width="500" height="500">
+<img src="<?php echo $output_path; ?>" alt="iran map" width="<?php
+if ($chartType == 1 || $chartType==2){
+    echo 500;
+}elseif ($chartType == 3){
+    echo 500;
+}
+?>" height="<?php
+if ($chartType == 1 || $chartType==2){
+    echo 500;
+}elseif ($chartType == 3){
+    echo 300;
+}
+?>">
 
 </body>
 </html>
