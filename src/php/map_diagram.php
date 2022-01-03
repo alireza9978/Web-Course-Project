@@ -184,7 +184,7 @@ if ($chartDataValidation) {
         return array($min_value, $max_value);
     }
 
-    function draw_circles_on_image($data, $place_array, $min_max_value, $image, $color, $circle_diameter_range, $min_circle_diameter)
+    function draw_circles_on_image($data, $place_array, $min_max_value, $image, $color, $circle_diameter_range, $min_circle_diameter, $chartType)
     {
         $min_value = $min_max_value[0];
         $max_value = $min_max_value[1];
@@ -196,7 +196,11 @@ if ($chartDataValidation) {
             $temp_value = $temp_value / $values_different;
             $temp_value = $circle_diameter_range * $temp_value;
             $temp_value = $temp_value + $min_circle_diameter;
-            imagefilledellipse($image, $temp[1], $temp[2], $temp_value, $temp_value, $color);
+            if ($chartType == 2){
+                imagefilledellipse($image, $temp[3], $temp[2], $temp_value, $temp_value, $color);
+            }else{
+                imagefilledellipse($image, $temp[1], $temp[2], $temp_value, $temp_value, $color);
+            }
         }
     }
 
@@ -237,7 +241,7 @@ if ($chartDataValidation) {
 // Draw circle in center of states
     $data = json_decode($chartData);
     if ($chartType == 1) {
-        draw_circles_on_image($data, $states_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter);
+        draw_circles_on_image($data, $states_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter, $chartType);
     } elseif ($chartType == 2) {
         if ($chart_sum_up) {
             $temp_city_state_array = [];
@@ -249,12 +253,12 @@ if ($chartDataValidation) {
                     $temp_city_state_array[$temp_city[1]] += $temp_value;
                 }
             }
-            draw_circles_on_image($temp_city_state_array, $states_array, find_min_and_max($temp_city_state_array), $im, $circle_color, $circle_diameter_range, $min_circle_diameter);
+            draw_circles_on_image($temp_city_state_array, $states_array, find_min_and_max($temp_city_state_array), $im, $circle_color, $circle_diameter_range, $min_circle_diameter, 1);
         } else {
-            draw_circles_on_image($data, $coordinates_cities_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter);
+            draw_circles_on_image($data, $coordinates_cities_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter, $chartType);
         }
     } elseif ($chartType == 3) {
-        draw_circles_on_image($data, $world_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter);
+        draw_circles_on_image($data, $world_array, find_min_and_max($data), $im, $circle_color, $circle_diameter_range, $min_circle_diameter, $chartType);
     }
 
 // Copy and merge
