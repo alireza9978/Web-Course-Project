@@ -83,7 +83,7 @@ function validate_data($str = NULL, $chart_type = NULL): bool
         global $world_array;
         foreach ($data as $key => $val) {
             $temp = $world_array[$key];
-            echo "id=$key, state_name=$temp[0] value=$val<br/>";
+            echo "id=$key, country_name=$temp[0] value=$val<br/>";
             echo "x=$temp[1], y=$temp[2] <br/>";
         }
     }
@@ -92,78 +92,57 @@ function validate_data($str = NULL, $chart_type = NULL): bool
 
 ?>
 
-Welcome <br>
-
-<!-- chart type -->
-<p>
-    <?php
-    $chartType = $_POST["chart_type"];
-    echo "Your chart type is:" . $chartType;
-    ?>
-</p>
-
-<!-- chart color -->
+<!-- handle post data -->
 <?php
+$chartType = $_POST["chart_type"];
+
 $color = $_POST["color"];
 list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
-echo '<p style="color:' . $color . ';">Your chart circle color is: ' . $color . '</br>';
-echo 'Your chart circle color is: R:' . $r . ' G:' . $g . ' B:' . $b . '</p>';
+
+$chart_caption = $_POST["caption"];
+
+$chart_sum_up = $_POST["sum_up"];
+if ($chart_sum_up != null) {
+    $chart_sum_up = true;
+} else {
+    $chart_sum_up = false;
+}
+
+$chartData = $_POST["chart_data"];
+$chartDataValidation = validate_data($chartData, $chartType);
+
+
+$outputPath = $_POST["output_path"];
+$outputFile = $_POST["output_name"];
+if ($outputFile != null and $outputPath != null) {
+    if (is_dir($outputPath)) {
+        if (!file_exists($outputPath)) {
+            mkdir($outputPath, 0777, true);
+        }
+        $outputFile = $outputPath . "/" . $outputFile;
+    }
+} else {
+    $outputFile = "no where";
+}
 ?>
 
-<!-- chart caption -->
-<p>
-    <?php
-    $chart_caption = $_POST["caption"];
-    ?>
-    Your chart caption is: "<?php echo $chart_caption; ?>"
-</p>
-
-
-<!-- sum up -->
-<p>
-    <?php
-    $chart_sum_up = $_POST["sum_up"];
-    if ($chart_sum_up != null) {
-        $chart_sum_up = true;
-    } else {
-        $chart_sum_up = false;
-    }
-    ?>
-    Your chart cities sum up state : "<?php echo $chart_sum_up; ?>"
-</p>
-
-<!-- chart data -->
-<p>
-    <?php
-    $chartData = $_POST["chart_data"];
-    $chartDataValidation = validate_data($chartData, $chartType);
-    ?>
-    Your chart data is: <?php echo $chartData; ?>
-    <br>
-    Your chart data is: <?php echo get_validation_str($chartDataValidation); ?>
-</p>
-
-<!-- chart path -->
-<p>
-    <?php
-    $outputPath = $_POST["output_path"];
-    $outputFile = $_POST["output_name"];
-    if ($outputFile != null and $outputPath != null) {
-        if (is_dir($outputPath)) {
-            if (!file_exists($outputPath)) {
-                mkdir($outputPath, 0777, true);
-            }
-            $outputFile = $outputPath . "/" . $outputFile;
-        }
-    } else {
-        $outputFile = "no where";
-    }
-    ?>
-    Your Chart Saved in = <?php echo $outputFile; ?>
-
-</p>
-
+<!-- image processing section -->
 <?php
+$html_image_width = 500;
+$html_image_height = 500;
+
+if ($chartType == 1 || $chartType == 2) {
+    $html_image_width = 500;
+} elseif ($chartType == 3) {
+    $html_image_width = 600;
+}
+if ($chartType == 1 || $chartType == 2) {
+    $html_image_height = 500;
+} elseif ($chartType == 3) {
+    $html_image_height = 400;
+}
+
+
 $max_circle_diameter = 60;
 $min_circle_diameter = 20;
 $circle_diameter_range = $max_circle_diameter - $min_circle_diameter;
@@ -229,7 +208,7 @@ if ($chartType == 1) {
         imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
     }
 } elseif ($chartType == 2) {
-    if ($chart_sum_up){
+    if ($chart_sum_up) {
         $temp_city_state_array = [];
         foreach ($data as $key => $temp_value) {
             $temp_city = $cities_array[$key];
@@ -259,7 +238,7 @@ if ($chartType == 1) {
             $temp_value = $temp_value + $min_circle_diameter;
             imagefilledellipse($im, $temp[1], $temp[2], $temp_value, $temp_value, $circle_color);
         }
-    }else{
+    } else {
         $max_value = -1;
         $min_value = 100000;
         foreach ($data as $key => $temp_value) {
@@ -313,7 +292,6 @@ imagecopymerge($final_image, $im, 0, 0, 0, 0, $main_image_width, $main_image_hei
 // Replace path by your own font path
 //$font = '../fonts/arial.ttf';
 $font = 'C:\Users\Alireza\PhpstormProjects\Web-Course-Project\src\fonts\arial.ttf';
-
 // Add the text
 if ($chart_caption != null) {
     imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $white, $font, $chart_caption);
@@ -329,19 +307,46 @@ imagepng($final_image, $output_path);
 imagedestroy($im);
 imagedestroy($final_image);
 ?>
-<img src="<?php echo $output_path; ?>" alt="iran map" width="<?php
-if ($chartType == 1 || $chartType == 2) {
-    echo 500;
-} elseif ($chartType == 3) {
-    echo 500;
-}
-?>" height="<?php
-if ($chartType == 1 || $chartType == 2) {
-    echo 500;
-} elseif ($chartType == 3) {
-    echo 300;
-}
-?>">
+
+Welcome <br>
+
+<!-- chart type -->
+<p>
+    Your chart type is: <?php echo $chartType; ?>
+</p>
+
+<!-- chart color -->
+<p style="color:<?php echo $color; ?>">
+    Your chart circle color is: <?php echo $color; ?>
+    <br>
+    Your chart circle color is: <?php echo 'R:' . $r . ' G:' . $g . ' B:' . $b; ?>
+</p>
+
+<!-- chart caption -->
+<p>
+    Your chart caption is: "<?php echo $chart_caption; ?>"
+</p>
+
+<!-- sum up -->
+<p>
+    Your chart cities sum up state : "<?php echo $chart_sum_up; ?>"
+</p>
+
+<!-- chart data -->
+<p>
+    Your chart data is: <?php echo $chartData; ?>
+    <br>
+    Your chart data is: <?php echo get_validation_str($chartDataValidation); ?>
+</p>
+
+<!-- chart path -->
+<p>
+    Your Chart Saved in = <?php echo $outputFile; ?>
+</p>
+
+<img src="<?php echo $output_path; ?>" alt="iran map"
+     width="<?php echo $html_image_width ?>"
+     height="<?php echo $html_image_height ?>">
 
 </body>
 </html>
