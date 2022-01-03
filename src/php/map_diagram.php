@@ -46,7 +46,7 @@ try {
  * get validation string
  * @return string
  */
-function get_validation_str($bool = false): string
+function get_validation_str(bool $bool = false): string
 {
     if ($bool) {
         return "valid";
@@ -195,7 +195,7 @@ if ($chartDataValidation) {
 
     /**
      * @param $data
-     * dind min and max in array
+     * find min and max in array
      * @return array|int[]
      */
     function find_min_and_max($data): array
