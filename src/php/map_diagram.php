@@ -190,7 +190,7 @@ $white = imagecolorallocate($final_image, 255, 255, 255);
 $grey = imagecolorallocate($final_image, 128, 128, 128);
 $black = imagecolorallocate($final_image, 0, 0, 0);
 // fill final image with white
-imagefill($final_image, 0, 0, $white);
+imagefill($final_image, 0, 0, $black);
 
 ////load map and add circle
 
@@ -311,11 +311,12 @@ imagecopymerge($final_image, $im, 0, 0, 0, 0, $main_image_width, $main_image_hei
 
 ////add caption to final image
 // Replace path by your own font path
-$font = '../fonts/arial.ttf';
+//$font = '../fonts/arial.ttf';
+$font = 'C:\Users\Alireza\PhpstormProjects\Web-Course-Project\src\fonts\arial.ttf';
 
 // Add the text
 if ($chart_caption != null) {
-    imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $black, $font, $chart_caption);
+    imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $white, $font, $chart_caption);
 }
 
 // Save the image to a file.
