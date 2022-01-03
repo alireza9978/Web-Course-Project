@@ -1,0 +1,14 @@
+
+body {
+    height: 100%;
+    width: 80%;
+    padding-top: 25px;
+    font-size: 1vw;
+    margin: auto;
+    background-color: whitesmoke;
+}
+html {
+    border: 2px solid darkslategray;
+    border-radius: 30px;
+    margin: 50px;
+}

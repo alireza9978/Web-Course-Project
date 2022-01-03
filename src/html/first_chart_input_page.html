@@ -1,47 +1,21 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     <title>Map Diagram</title>
     <script src="../js/first_chart_input_page.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
     <meta charset="UTF-8">
-
-    <style>
-        body {
-            height: 100%;
-            width: 80%;
-            padding-top: 25px;
-            font-size: 1vw;
-            margin: auto;
-            /*display: table-cell;*/
-            /*vertical-align: center;*/
-
-            /*background-image: url('../images/map-scaled.png');*/
-            /*background-repeat: no-repeat;*/
-            /*background-attachment: fixed;*/
-            /*background-size: 100% 100%;*/
-            background-color: whitesmoke;
-        }
-
-        /*.container {*/
-        /*    position: relative;*/
-        /*}*/
-
-        html {
-            border: 2px solid darkslategray;
-            border-radius: 30px;
-            margin: 60px;
-        }
-    </style>
+    <meta name ="developers" content="Hadi Tamimi _ Alireza Rahimi">
 </head>
 
-
 <div>
-    <span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw">map diagram</span>
+    <span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw; margin-top: -2%;">map diagram</span>
 
-    <div style=" float:right; margin: 0.5% -5% 0.5% 0.5%;">
+    <div style=" float:right; margin: 0.5%;">
         <h1 style="float: right;font-size: 1.2vw;font-family: 'B Nazanin',serif ;color: black">: توسعه دهندگان </h1>
     </div>
     <div style=" float:right; margin: 0.5%;">
@@ -55,16 +29,16 @@
             علیرضا رحمیمی ازقدی</h1>
     </div>
     <div>
-        <h1 class="col-sm-4" style="font-size: 1.2vw;font-family: 'B Nazanin',serif;margin-left: -5%">آخرین به روزرسانی:
-            ۱۴۰۰/۱۰/۰۹</h1>
+        <h1 class="col-sm-4" style="font-size: 1.2vw;font-family: 'B Nazanin',serif;margin-left: -2%;margin-top: 4px">آخرین به روزرسانی:
+            ۱۴۰۰/۱۰/۱۳</h1>
     </div>
 </div>
 
-
-<br><br><br><br>
+<br><br><br>
 
 <body>
 <form action="../php/map_diagram.php" method="post">
+
     <label for="chart_type">
         Chart Type:
     </label>
@@ -74,7 +48,6 @@
         <option value="3">World's Countries</option>
     </select>
     <br>
-
     <label for="sum_up" class="checkbox" id="sum_up_txt" style="display:none; margin-left: 2%">
     <input name="sum_up" type="checkbox" id="sum_up" style="display:none"/>sum up in Capital cities</label>
 
@@ -84,8 +57,7 @@
     <br>
     <label for="caption">Chart Caption: </label>
     <input type="text" id="caption" name="caption">
-    <br>
-    <br>
+    <br><br>
     <label for="chart_data">Chart Data: &nbsp;</label>
     <textarea type="text" id="chart_data" name="chart_data" rows="2" cols="50">{"17":10,"19":20}</textarea>
     <br>
@@ -94,52 +66,9 @@
     <br>
     <label for="output_name">Output Name: </label>
     <textarea type="text" id="output_name" name="output_name" rows="1" cols="20" placeholder="Enter output file name">states.png</textarea>
-    <br>
-    <!--    <label for="fname">Output Path:</label>-->
-    <!--    <input type="text" id="fname" name="fname"><br>-->
-    <br>
+    <br><br>
     <input type="submit">
 </form>
-<table id="data_table"></table>
 </body>
-<br><br><br><br><br><br><br>
+<br><br><br><br><br>
 </html>
-
-
-<script>
-    function chartTypeSelectFunction() {
-        const x = document.getElementById("chart_type").value;
-        const y = document.getElementById("sum_up");
-        const z = document.getElementById("sum_up_txt");
-        if (x === "1") {
-            document.getElementById('chart_data').value = '{"17":10,"19":20}';
-            document.getElementById('output_path').value = '/home/alireza/Desktop';
-            document.getElementById('output_name').value = 'states.png';
-            if (y.style.display === "block") {
-                y.style.display = "none";
-                z.style.display = "none";
-            }
-
-        }
-        if (x === "2") {
-            document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
-            document.getElementById('output_path').value = '/home/alireza/Desktop';
-            document.getElementById('output_name').value = 'cities.png';
-
-            if (y.style.display === "none") {
-                y.style.display = "block";
-                z.style.display = "block";
-            }
-
-        }
-        if (x === "3") {
-            document.getElementById('chart_data').value = '{"4":10,"108":20, "144":15}';
-            document.getElementById('output_path').value = '/home/alireza/Desktop';
-            document.getElementById('output_name').value = 'world.png';
-            if (y.style.display === "block") {
-                y.style.display = "none";
-                z.style.display = "none";
-            }
-        }
-    }
-</script>
