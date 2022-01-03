@@ -41,7 +41,11 @@ try {
 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
     echo "error";
 }
-
+/**
+ * @param false $bool
+ * get validation string
+ * @return string
+ */
 function get_validation_str($bool = false): string
 {
     if ($bool) {
@@ -51,6 +55,11 @@ function get_validation_str($bool = false): string
     }
 }
 
+/**
+ * @param null $str
+ * @return bool
+ * checks validation
+ */
 function validate_json($str = NULL): bool
 {
     if (is_string($str)) {
@@ -60,6 +69,12 @@ function validate_json($str = NULL): bool
     return false;
 }
 
+/**
+ * @param null $str
+ * @param null $chart_type
+ * @return bool
+ * ckeck input data ID
+ */
 function validate_data($str = NULL, $chart_type = NULL): bool
 {
     $strValidation = validate_json($str);
@@ -137,7 +152,11 @@ if ($outputFile != null and $outputPath != null) {
 <!-- image processing section -->
 <?php
 if ($chartDataValidation) {
-
+    /**
+     * @param $chartType
+     * get html image size
+     * @return int[]
+     */
     function get_html_image_size($chartType): array
     {
         $html_image_width = 500;
@@ -155,6 +174,11 @@ if ($chartDataValidation) {
         return array($html_image_width, $html_image_height);
     }
 
+    /**
+     * @param $chartType
+     * get final image size
+     * @return int[]|null[]
+     */
     function get_final_image_size($chartType): array
     {
         $main_image_width = null;
@@ -169,6 +193,11 @@ if ($chartDataValidation) {
         return array($main_image_width, $main_image_height);
     }
 
+    /**
+     * @param $data
+     * dind min and max in array
+     * @return array|int[]
+     */
     function find_min_and_max($data): array
     {
         $max_value = -1;
@@ -184,6 +213,16 @@ if ($chartDataValidation) {
         return array($min_value, $max_value);
     }
 
+    /**
+     * @param $data
+     * @param $place_array
+     * @param $min_max_value
+     * @param $image
+     * @param $color
+     * @param $circle_diameter_range
+     * @param $min_circle_diameter
+     * draw circle on map image
+     */
     function draw_circles_on_image($data, $place_array, $min_max_value, $image, $color, $circle_diameter_range, $min_circle_diameter)
     {
         $min_value = $min_max_value[0];
@@ -263,7 +302,8 @@ if ($chartDataValidation) {
 ////add caption to final image
 // Replace path by your own font path
 //$font = '../fonts/arial.ttf';
-    $font = 'C:\Users\Alireza\PhpstormProjects\Web-Course-Project\src\fonts\arial.ttf';
+//    $font = 'C:\Users\Alireza\PhpstormProjects\Web-Course-Project\src\fonts\arial.ttf';
+    $font = 'F:\Term 9\web\project\Web-Course-Project\src\fonts\arial.ttf';
 // Add the text
     if ($chart_caption != null) {
         imagettftext($final_image, 50, 0, $main_image_width / 2, $main_image_height + ($caption_height / 2), $white, $font, $chart_caption);
