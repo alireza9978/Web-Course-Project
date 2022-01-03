@@ -12,7 +12,7 @@ function chartTypeSelectFunction() {
 
     }
     if (x === "2") {
-        document.getElementById('chart_data').value = '{"33":5,"427":5, "415":5, "369":7}';
+        document.getElementById('chart_data').value = '{"33":8,"427":5, "415":10, "369":12}';
         document.getElementById('output_name').value = 'cities.png';
 
         if (y.style.display === "none") {
