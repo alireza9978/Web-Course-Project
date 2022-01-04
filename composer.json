@@ -2,6 +2,8 @@
   "license": "MIT",
   "require": {
     "phpoffice/phpspreadsheet": "1.20.*",
+    "ext-gd": "*"
+    "phpoffice/phpspreadsheet": "1.20.*",
     "justinrainbow/json-schema": "^5.2"
   }
 }
