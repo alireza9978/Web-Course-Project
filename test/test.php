@@ -20,7 +20,7 @@ $output_path = "out.png";
 $im = imagecreatefrompng($image_path);
 // Create a colour.
 $white = imagecolorallocate($im, 255, 0, 0);
-// Draw a cirlce in the middle of the image.
+// Draw a circle in the middle of the image.
 imagefilledellipse($im, $main_image_height / 2, $main_image_height / 2, $circle_diameter, $circle_diameter, $white);
 // Save the image to a file.
 // output the picture
