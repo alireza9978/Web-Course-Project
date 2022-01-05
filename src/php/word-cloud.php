@@ -30,8 +30,10 @@
         }
 
         $word_cloud_array_counted = array(
-            "hadi" => 13,
-            "alireza" => 14,
+            "Hadi" => 13,
+            "Alireza" => 14,
+            "Maryam" => 9,
+            "Parnian" => 8  ,
             "temp" => 5,
             "test" => 9,
             "فردوسی" => 14,
@@ -39,7 +41,6 @@
             "وب" => 15,
             "web" => 14,
             "pooya" => 12,
-            "in" => 11,
             "cloud" => 20,
             "word" => 18,
             "project" => 20,
@@ -48,10 +49,10 @@
             "php" => 25,
             "json" => 14,
             "html" => 10,
-            "برنامه نویسی" => 15,
+            "برنامه نویسی" => 10,
             "group" => 8,
-            "diagram" => 12,
-            "term" => 11
+            "diagram" => 11,
+            "term" => 10
         );
 
         $sum_of_count = 0;
