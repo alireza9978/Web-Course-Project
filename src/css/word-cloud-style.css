@@ -1,0 +1,23 @@
+p {
+    margin: 0;
+    display: inline;
+}
+body {
+    background-color: rgb(230, 230, 230);
+}
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+.word {
+    display: inline-block;
+    float: right;
+}
+.rotate {
+    writing-mode: tb-rl;
+}
+html {
+    border: 2px solid darkslategray;
+    border-radius: 30px;
+    margin: 50px;
+}
