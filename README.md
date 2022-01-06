@@ -13,6 +13,8 @@ Weekly tasks:
   week 3: add path for saving image and check some inputs. (done)
   <br />
   week 4: cities diagram added and bugs fixed.(final)
+   <br />
+  week 4: word cloud added.(final)
   <br />
   <br />
   Iran states map diagram output:
@@ -36,7 +38,7 @@ Weekly tasks:
 </p>
 Word cloud output:
 <p align="center">
-  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-3.png" width="900" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="900" title="hover text">
 </p>
   <br />
 <p align="center">
