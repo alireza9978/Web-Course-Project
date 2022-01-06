@@ -15,3 +15,7 @@ Weekly tasks:
   week 4: cities diagram added and bugs fixed.(final)
 
 ![alt text](https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png?raw=true)
+
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="350" title="hover text">
+</p>
