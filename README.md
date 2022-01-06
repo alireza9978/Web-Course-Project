@@ -14,8 +14,24 @@ Weekly tasks:
   <br />
   week 4: cities diagram added and bugs fixed.(final)
 
-![alt text](https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png?raw=true)
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png" width="1500" title="hover text">
+</p>
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/cities.png" width="1500" title="hover text">
+</p>
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/world.png" width="1500" title="hover text">
+</p>
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/world%20html.png" width="1500" title="hover text">
+</p>
+
 
 <p align="center">
-  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="800" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="900" title="hover text">
 </p>
+<p align="center">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-1.png" width="900" title="hover text">
+</p>
+
