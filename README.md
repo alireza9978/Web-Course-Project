@@ -36,7 +36,7 @@ Weekly tasks:
 </p>
 Word cloud output:
 <p align="center">
-  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="900" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-3.png" width="900" title="hover text">
 </p>
   <br />
 <p align="center">
