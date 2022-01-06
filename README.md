@@ -13,3 +13,5 @@ Weekly tasks:
   week 3: add path for saving image and check some inputs. (done)
   <br />
   week 4: cities diagram added and bugs fixed.(final)
+
+![alt text](https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png?raw=true)
