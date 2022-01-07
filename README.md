@@ -22,9 +22,9 @@ Weekly tasks:
   <br />
   for map diagram: run "./src/html/first_chart_input_page.html"
   <br />
-  for word cloud: run "./src/src/php/word-cloud.php"
+  for word cloud: run "./src/php/word-cloud.php"
   <br />
-  for organizational chart: run "./src/src/php/organizationalChart.php"
+  for organizational chart: run "./src/php/organizationalChart.php"
   <br /><br />
   Iran states map diagram output:
 <p align="center">
