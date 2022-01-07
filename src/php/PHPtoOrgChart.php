@@ -14,7 +14,7 @@
 
             echo '<tr>';
             echo '<td colspan="'.($size*2).'">';
-            echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw" >'.$title.'</div>';
+            echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw;border-radius: 10px;" >'.$title.'</div>';
             echo '</td>';
             echo '</tr>';
             //head line
@@ -50,7 +50,7 @@
             if(is_array($value)) {
                 PHPtoOrgChart($value,$key);
             } else {
-                echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw" >'.$value.'</div>';
+                echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw;border-radius: 10px;" >'.$value.'</div>';
             }
             echo '</td>';
         }
