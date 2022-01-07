@@ -1,10 +1,9 @@
 # Web-Course-Project
 
-Map diagram php library
+Chart diagram php library
 
 <br />
 Weekly tasks:
-<br />
 <br />
   week 1: create html page to get input from user. (done)
 <br />
@@ -26,7 +25,7 @@ Weekly tasks:
   for word cloud: run "./src/src/php/word-cloud.php"
   <br />
   for organizational chart: run "./src/src/php/organizationalChart.php"
-  <br />
+  <br /><br />
   Iran states map diagram output:
 <p align="center">
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png" width="1500" title="hover text">
