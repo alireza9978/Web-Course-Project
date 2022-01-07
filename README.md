@@ -1,6 +1,6 @@
 # Web-Course-Project
 
- <title>Chart diagram php library</title>
+ **Chart diagram php library** 
 
 <br />
 Weekly tasks:
