@@ -14,9 +14,20 @@ Weekly tasks:
   <br />
   week 4: cities diagram added and bugs fixed.(final)
    <br />
-  week 4: word cloud added.(final)
+  week 4: word cloud completed.(final)
+  <br />
+  week 4: organizational chart completed.(final)
   <br />
   <br />
+  instruction:
+  <br />
+  for map diagram: run "./src/html/first_chart_input_page.html"
+   <br />
+  for word cloud: run "./src/src/php/word-cloud.php"
+  <br />
+  for organizational chart: run "./src/src/php/organizationalChart.php"
+  
+    <br />
   Iran states map diagram output:
 <p align="center">
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/states.png" width="1500" title="hover text">
