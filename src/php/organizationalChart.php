@@ -36,33 +36,83 @@ function jsonValidator($data): bool
 
 
 
-$users = json_decode(file_get_contents('php://input'));
+//$users = json_decode(file_get_contents('php://input'));
 
 //if (jsonValidator($users)) {
 //
 //} else {
 //    echo " \n\r  eeeeeerrrrrrorrrrrr";
 //}
+$json  = '{
+    "Users": [
+        {
+            "postid": 0,
+            "postTitle": "manager",
+            "employeeName": "AmirMalekEsfandiari",
+            "higherPostId": 0
+        },
+        {
+            "postid": 1,
+            "postTitle": "po",
+            "employeeName": "ehsan",
+            "higherPostId": 0
+        },
+        {
+            "postid": 2,
+            "postTitle": "po",
+            "employeeName": "ali",
+            "higherPostId": 0
+        },
+        {
+            "postid": 3,
+            "postTitle": "backend-developer",
+            "employeeName": "ali",
+            "higherPostId": 1
+        },
+        {
+            "postid": 4,
+            "postTitle": "po4",
+            "employeeName": "abbas",
+            "higherPostId": 2
+        },
+        {
+            "postid": 5,
+            "postTitle": "customer",
+            "employeeName": "hasan",
+            "higherPostId": 2
+        },
+        {
+            "postid": 6,
+            "postTitle": "cto",
+            "employeeName": "hamed",
+            "higherPostId": 3
+        },
+        {
+            "postid": 7,
+            "postTitle": "counter",
+            "employeeName": "mohammad",
+            "higherPostId": 4
+        }
+    ]
+}';
+
 
 
 $data=array(
-    'a'=>array(
+    'manager'=>array(
 //            'postId' => 0 ,
 
-        'aa'=>array(
-            'aaa'=>'Mike',
-            'aab'=>'Look',
-            'aac'=>'Rum',
-        ),
-        'bb'=>array(
-            'aaa'=>'123',
-            'aab'=>'567',
-            'aac'=>'890',
-            'bbdd'=>array(
-                'aaa'=>'123',
-                'aab'=>'567',
-                'aac'=>'890',
+        'po1'=>array(
+            'cto'=>array(
+                'a' => 'backend-developer'
             ),
+
+        ),
+        'po2'=>array(
+            'po4' => array(
+                'a' => 'counter'
+            ),
+            'aaa' => 'customer'
         ),
     )
 );
