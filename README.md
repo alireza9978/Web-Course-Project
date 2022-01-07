@@ -45,7 +45,7 @@ Weekly tasks:
 <p align="center">
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/world%20html.png" width="1500" title="hover text">
 </p>
-Word cloud output:
+Word cloud outputs:
 <p align="center">
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/word-cloud%20-2.png" width="1000" title="hover text">
 </p>
