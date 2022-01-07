@@ -28,7 +28,7 @@ Weekly tasks:
   <br /><br />
    map diagram first page:
 <p align="center">
-  <img src=https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/map-digram-first-page.png" width="1500" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/map-digram-first-page.png" width="1500" title="hover text">
 </p>
   Iran states map diagram output:
 <p align="center">
