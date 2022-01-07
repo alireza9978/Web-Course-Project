@@ -18,7 +18,7 @@ Weekly tasks:
   week 4: organizational chart completed.(final)
   <br />
   <br />
-  instruction:
+  Instruction:
   <br />
   for map diagram: run "./src/html/first_chart_input_page.html"
   <br />
@@ -57,7 +57,7 @@ Word cloud output:
 organizational chart output:
   <br />
 <p align="center">
-  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/organizational%20chart-output.png" width="1500" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/organizational%20chart-output.png" width="1900" title="hover text">
 </p>
 
 
