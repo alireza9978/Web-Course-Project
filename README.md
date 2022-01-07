@@ -1,6 +1,6 @@
 # Web-Course-Project
 
-Chart diagram php library
+ <title>Chart diagram php library</title>
 
 <br />
 Weekly tasks:
@@ -41,7 +41,7 @@ Weekly tasks:
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/world.png" width="1500" title="hover text">
 </p>
   <br />
-  world map diagram html output:
+  world map diagram HTML output:
 <p align="center">
   <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/world%20html.png" width="1500" title="hover text">
 </p>
