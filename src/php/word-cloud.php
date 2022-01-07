@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw; margin-top: -5%;">map diagram</span>
+
 
 <html lang="en">
 <head>
@@ -8,8 +8,10 @@
     <title>Word Cloud</title>
     <link rel="stylesheet" href="../css/word-cloud-style.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-
+    <meta name ="developers" content="Hadi Tamimi _ Goodarzi _ Emadidan _ Rahimi">
 </head>
+<span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw; margin-top: 1%;margin-left: 2%;">word cloud</span>
+
 <body>
     <?php
 
@@ -41,9 +43,9 @@
             "وب" => 15,
             "web" => 14,
             "pooya" => 12,
-            "cloud" => 20,
-            "word" => 18,
-            "project" => 20,
+            "cloud" => 17,
+            "word" => 16,
+            "project" => 18,
             "iran" => 9,
             "output" => 17,
             "php" => 25,

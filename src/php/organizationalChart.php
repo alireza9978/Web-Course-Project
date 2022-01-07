@@ -1,11 +1,12 @@
 <!DOCTYPE >
 <html>
 <head>
+    <title>organizational chart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/organizational-chart-style.css"/>
+    <meta name ="developers" content="Amir Esfandiari _ Hadi Tamimi">
 </head>
 <body>
-
 
 
 <?php
@@ -35,14 +36,6 @@ function jsonValidator($data): bool
 }
 
 
-
-//$users = json_decode(file_get_contents('php://input'));
-
-//if (jsonValidator($users)) {
-//
-//} else {
-//    echo " \n\r  eeeeeerrrrrrorrrrrr";
-//}
 $json  = '{
     "Users": [
         {

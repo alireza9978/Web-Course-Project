@@ -1,3 +1,10 @@
+<head>
+    <title>organizational chart</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <meta name ="developers" content="Amir Esfandiari _ Hadi Tamimi">
+    <meta charset="UTF-8">
+</head>
+<span class="badge badge-pill badge-warning" style="padding: 8px;font-size: 1.1vw; margin-top: -5%;margin-left: -3%;">organizational chart</span>
 <?php
     function PHPtoOrgChart(array $arr,$title='') {
         echo '<table>';
@@ -7,7 +14,7 @@
 
             echo '<tr>';
             echo '<td colspan="'.($size*2).'">';
-            echo '<div class="charttext">'.$title.'</div>';
+            echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw" >'.$title.'</div>';
             echo '</td>';
             echo '</tr>';
             //head line
@@ -43,7 +50,7 @@
             if(is_array($value)) {
                 PHPtoOrgChart($value,$key);
             } else {
-                echo '<div class="charttext">'.$value.'</div>';
+                echo '<div class="img-thumbnail"  style="font-size: 0.85vw; width: max-content;height: auto; background: #ffc720;font-size: 1vw" >'.$value.'</div>';
             }
             echo '</td>';
         }
