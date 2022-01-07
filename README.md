@@ -61,7 +61,7 @@ Word cloud outputs:
 organizational chart output:
   <br />
 <p align="center">
-  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/organizational%20chart-output.png" width="1500" title="hover text">
+  <img src="https://github.com/alireza9978/Web-Course-Project/blob/master/test%20outputs/organizational%20chart-output-2.png" width="1500" title="hover text">
 </p>
 
 
