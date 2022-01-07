@@ -102,17 +102,25 @@ $data=array(
     'manager'=>array(
 //            'postId' => 0 ,
 
-        'po1'=>array(
-            'cto'=>array(
-                'a' => 'backend-developer'
+        'Vic persident Account Services'=>array(
+            'Account Supervisor' => array(
+                'a' => 'Account Executive',
+                'aa'=>  'Account Executive'
             ),
-
+            'aa' => 'Account Supervisor'
         ),
-        'po2'=>array(
-            'po4' => array(
-                'a' => 'counter'
-            ),
-            'aaa' => 'customer'
+        'Vic President Creative Services'=>array(
+            'a' => 'Art / Copy' ,
+            'aa' => 'Production'
+        ),
+        'Vic President Marketing Services'=>array(
+            'a' => 'Media',
+            'aa' => 'Researcher'
+        ),
+        'Vic President Management Services'=>array(
+            'a' =>'Accounting',
+            'aaa' => 'customer',
+            'aa' => 'Purchasing'
         ),
     )
 );
