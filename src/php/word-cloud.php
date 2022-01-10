@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Cloud</title>
     <link rel="stylesheet" href="../css/word-cloud-style.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -63,13 +62,9 @@
         }
     ?>
     <div class="container">
-        <?php 
-            $sum_val = 0;
+        <?php
             foreach (shuffle_assoc($word_cloud_array_counted) as $key => $val) {
-                $sum_val += $val;
-                // for ($i=0; $i>=($sum_val / ($sum_of_count * 4)); $i++){
-                // print_r("<div style='whit-space: pre'> </div>");
-                // }
+
                 $size = 0;
                 if ( $val > ($sum_of_count / sizeof($word_cloud_array_counted) * 0.9) ) {
                     $size = 4;
@@ -93,9 +88,7 @@
                     $size = 1;
                 }
                 print_r("<div class='word ".(rand(1, 3)==1 ? 'rotate' : '')."' id='$key' style='font-size:".$size."em;color:".rand_color().";'>$key</div>");
-                if ($sum_val > ($sum_of_count / 4)){
-                    $sum_val = 0;
-                }
+
             };
 
     ?>
